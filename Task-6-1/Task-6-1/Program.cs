@@ -22,6 +22,27 @@ namespace Task_6_1
         {
             nodes.Add(N);
         }
+        public int[,] Matrix()
+        {
+            var a = new int[nodes.Count, nodes.Count];
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                foreach (Edge b in nodes[i].Edges)
+                {
+                    for (int j = 0; j < nodes.Count; j++)
+                    {
+                        if (b.Node == nodes[j])
+                        {
+                            a[i, j] = b.Weight;
+                        }
+                    }
+                }
+
+
+            }
+
+            return a;
+        }
     }
         class Program
     {
@@ -64,10 +85,19 @@ namespace Task_6_1
             graph.AddNode(node3);
             graph.AddNode(node4);
 
+            var a = graph.Matrix();
+
+            for (int i = 0; i < a.GetLength(0); i++)
+            {
+                for (int j = 0; j < a.GetLength(1); j++)
+                {
+                    Console.Write(a[i, j] + "|");
+                }
+                Console.WriteLine();
 
 
 
-
+            }
         }
     }
 }
