@@ -82,15 +82,29 @@ namespace Task_6_1
                         queue.Dequeue().status = 3;
                     }
 
-
-
                 }
 
             }
-           
-
-
-
+          
+        }
+        public static void FrontStatDFS(Node node, int value)
+        {
+           // var a = node;
+            if (node.value == value)
+            {
+                Console.WriteLine("Найдено");
+               
+            }
+            else
+            {
+                if(node!=null)
+                    foreach(Edge stat in node.Edges)
+                    {
+                        FrontStatDFS(stat.Node, value);
+                       
+                    }
+               
+            }
         }
 
         static void Main(string[] args)
@@ -109,7 +123,7 @@ namespace Task_6_1
             Edge edge5 = new Edge();
             Edge edge6 = new Edge();
             Edge edge7 = new Edge();
-            Edge edge8 = new Edge();
+            
 
             Graph graph = new Graph();
 
@@ -127,7 +141,7 @@ namespace Task_6_1
             edge5.Weight = 30;
             edge6.Weight = 5;
             edge7.Weight = 70;
-            edge8.Weight = 1;
+            
 
             edge1.Node = node2;
             edge2.Node = node5;
@@ -136,7 +150,7 @@ namespace Task_6_1
             edge5.Node = node5;
             edge6.Node = node1;
             edge7.Node = node6;
-            edge8.Node = node4;//3 v 4
+           
             
 
             node1.Edges.Add(edge1);
@@ -146,7 +160,7 @@ namespace Task_6_1
             node1.Edges.Add(edge5);
             node2.Edges.Add(edge6);
             node5.Edges.Add(edge7);
-            node3.Edges.Add(edge8);
+           
 
 
             graph.AddNode(node1);
@@ -169,7 +183,8 @@ namespace Task_6_1
 
 
             }
-            FronStatBfs(node1, 40);
+            FronStatBfs(node1, 50);
+            FrontStatDFS(node1, 50);
         }
     }
 }
