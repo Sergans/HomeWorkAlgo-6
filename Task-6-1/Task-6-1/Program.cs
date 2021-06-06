@@ -89,22 +89,27 @@ namespace Task_6_1
         }
         public static void FrontStatDFS(Node node, int value)
         {
-           // var a = node;
-            if (node.value == value)
-            {
-                Console.WriteLine("Найдено");
-               
-            }
-            else
-            {
-                if(node!=null)
-                    foreach(Edge stat in node.Edges)
-                    {
-                        FrontStatDFS(stat.Node, value);
-                       
-                    }
-               
-            }
+            //while (node != null)
+           // {
+                // var a = node;
+                if (node.value == value)
+                {
+                    Console.WriteLine("Найдено");
+                node = null;
+
+                }
+                else
+                {
+                    if (node.Edges.Count != 0)
+                        foreach (Edge stat in node.Edges)
+                        {
+                            FrontStatDFS(stat.Node, value);
+
+                        }
+
+                }
+            //}
+          
         }
 
         static void Main(string[] args)
@@ -183,8 +188,8 @@ namespace Task_6_1
 
 
             }
-            FronStatBfs(node1, 50);
-            FrontStatDFS(node1, 50);
+            FronStatBfs(node1, 60);
+            FrontStatDFS(node1, 60);
         }
     }
 }
