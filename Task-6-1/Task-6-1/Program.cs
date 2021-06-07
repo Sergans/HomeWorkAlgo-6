@@ -8,6 +8,7 @@ namespace Task_6_1
         public int value { get; set; }
         public List<Edge> Edges = new List<Edge>();//Исходящие
         public int status { get; set; }
+        public bool visit;
     }
     public class Edge
     {
@@ -89,25 +90,75 @@ namespace Task_6_1
         }
         public static void FrontStatDFS(Node node, int value)
         {
-            //while (node != null)
-           // {
-                // var a = node;
-                if (node.value == value)
+            List<Node> visit = new List<Node>();
+            Stack<Node> stack = new Stack<Node>();
+            var a = node;
+            stack.Push(a);
+            while (stack.Count!=0)
+            {
+                if (stack.Peek().value == value)
                 {
                     Console.WriteLine("Найдено");
-                node = null;
+                    break;
 
                 }
                 else
                 {
-                    if (node.Edges.Count != 0)
-                        foreach (Edge stat in node.Edges)
+                    if (stack.Peek().visit == false)
+                    {
+                        if (stack.Peek().Edges.Count != 0)
                         {
-                            FrontStatDFS(stat.Node, value);
+                            stack.Peek().visit = true;
+                            Console.WriteLine($"Узел- {stack.Peek().value}- не найдено");
 
+                            foreach (Edge stat in stack.Peek().Edges)
+                            {
+                                if (stat.Node.visit == false)
+                                {
+                                    stack.Push(stat.Node);
+                                }
+                                
+                            }
                         }
+                        else
+                        {
+                            stack.Peek().visit = true;
+                            stack.Pop();
+                        }
+                       
+
+                    }
+                    else
+                    {
+                        stack.Pop();
+                    }
+                    
+
 
                 }
+
+
+
+
+            }
+                
+                //else
+                //{
+                //if (node.Edges.Count != 0&&node.visit==false)
+                //{
+                //    foreach (Edge stat in node.Edges)
+                //    {
+                        
+                //        FrontStatDFS(stat.Node, value);
+                //        stat.Node.visit = true;
+
+
+                //    }
+                //}
+
+                        
+
+                //}
             //}
           
         }
@@ -188,8 +239,8 @@ namespace Task_6_1
 
 
             }
-            FronStatBfs(node1, 60);
-            FrontStatDFS(node1, 60);
+            FronStatBfs(node1, 30);
+            FrontStatDFS(node1, 30);
         }
     }
 }
