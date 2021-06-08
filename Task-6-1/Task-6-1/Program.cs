@@ -274,6 +274,12 @@ namespace Task_6_1
             graph.AddNode(node5);
             graph.AddNode(node6);
 
+           
+           
+            TestCase testCase = new TestCase();
+            testCase.stepbfs = new[] { 10, 20, 50, 30, 40, 60 };//тестовая последовательность BFS
+            testCase.stepdfs = new[] { 10, 50, 60, 20, 40, 30};//тестовая последовательность DFS
+            TestStep(node1, testCase);
             var a = graph.Matrix();
 
             for (int i = 0; i < a.GetLength(0); i++)
@@ -287,15 +293,7 @@ namespace Task_6_1
 
 
             }
-          // var bfs= FronStatBfs(node1, 6);
-            Console.WriteLine();
-          // var dfs= FrontStatDFS(node1, 6);
-            //Console.WriteLine();
-            TestCase testCase = new TestCase();
-            testCase.stepbfs = new[] { 10, 20, 50, 30, 40, 60 };//тестовая последовательность BFS
-            testCase.stepdfs = new[] { 10, 50, 60, 20, 40, 30};//тестовая последовательность DFS
-            TestStep(node1, testCase);
-            FrontStatDFS(node1, 0);
+
         }
     }
 }
