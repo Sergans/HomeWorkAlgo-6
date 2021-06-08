@@ -78,7 +78,7 @@ namespace Task_6_1
 
                         }
 
-                        //queue.Dequeue();
+                        
                         Console.WriteLine($"Узел- {queue.Peek().value}- не найдено");
                         queue.Dequeue().status = 3;
                     }
@@ -90,7 +90,7 @@ namespace Task_6_1
         }
         public static void FrontStatDFS(Node node, int value)
         {
-            List<Node> visit = new List<Node>();
+           
             Stack<Node> stack = new Stack<Node>();
             var a = node;
             stack.Push(a);
@@ -106,10 +106,11 @@ namespace Task_6_1
                 {
                     if (stack.Peek().visit == false)
                     {
+                        Console.WriteLine($"Узел- {stack.Peek().value}- не найдено");
                         if (stack.Peek().Edges.Count != 0)
                         {
                             stack.Peek().visit = true;
-                            Console.WriteLine($"Узел- {stack.Peek().value}- не найдено");
+                            
 
                             foreach (Edge stat in stack.Peek().Edges)
                             {
@@ -132,34 +133,10 @@ namespace Task_6_1
                     {
                         stack.Pop();
                     }
-                    
-
-
+                  
                 }
 
-
-
-
             }
-                
-                //else
-                //{
-                //if (node.Edges.Count != 0&&node.visit==false)
-                //{
-                //    foreach (Edge stat in node.Edges)
-                //    {
-                        
-                //        FrontStatDFS(stat.Node, value);
-                //        stat.Node.visit = true;
-
-
-                //    }
-                //}
-
-                        
-
-                //}
-            //}
           
         }
 
@@ -239,8 +216,9 @@ namespace Task_6_1
 
 
             }
-            FronStatBfs(node1, 30);
-            FrontStatDFS(node1, 30);
+            FronStatBfs(node1, 6);
+            Console.WriteLine();
+            FrontStatDFS(node1, 6);
         }
     }
 }
