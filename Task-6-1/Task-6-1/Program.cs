@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 namespace Task_6_1
 {
+    public class TestCase
+    {
+
+        public int[] stepbfs { get; set; }
+        public int[] stepdfs { get; set; }
+
+    }
     public class Node
     {
         public int value { get; set; }
@@ -48,8 +55,23 @@ namespace Task_6_1
     }
         class Program
     {
-        public static void FronStatBfs(Node node, int value)
+        public static bool AddVisit(Node node,List<Node> visit)
         {
+            
+            if (visit.Contains(node) == true)
+            {
+                return true;
+            }
+            else
+            {
+                visit.Add(node);
+            }
+            return false;
+        }
+        public static List<int> FronStatBfs(Node node, int value)
+        {
+            List<int> bfs = new List<int>();
+
             Queue<Node> queue = new Queue<Node>();
             var a = node;
             a.status = 2;
@@ -80,17 +102,20 @@ namespace Task_6_1
 
                         
                         Console.WriteLine($"Узел- {queue.Peek().value}- не найдено");
+                        bfs.Add(queue.Peek().value);
                         queue.Dequeue().status = 3;
                     }
 
                 }
 
             }
-          
+            return bfs; 
         }
-        public static void FrontStatDFS(Node node, int value)
+        public static List<int> FrontStatDFS(Node node, int value)
         {
+            List<Node> visit = new List<Node>();
            
+            List<int> dfs = new List<int>();
             Stack<Node> stack = new Stack<Node>();
             var a = node;
             stack.Push(a);
@@ -104,26 +129,30 @@ namespace Task_6_1
                 }
                 else
                 {
-                    if (stack.Peek().visit == false)
+                    if (AddVisit(stack.Peek(), visit) == false)
+
+                    
+                    //if (stack.Peek().visit == false)
                     {
                         Console.WriteLine($"Узел- {stack.Peek().value}- не найдено");
+                        dfs.Add(stack.Peek().value);
                         if (stack.Peek().Edges.Count != 0)
                         {
-                            stack.Peek().visit = true;
+                            //stack.Peek().visit = true;
                             
 
                             foreach (Edge stat in stack.Peek().Edges)
                             {
-                                if (stat.Node.visit == false)
-                                {
+                                //if (stat.Node.visit == false)
+                               // {
                                     stack.Push(stat.Node);
-                                }
+                               // }
                                 
                             }
                         }
                         else
                         {
-                            stack.Peek().visit = true;
+                           // stack.Peek().visit = true;
                             stack.Pop();
                         }
                        
@@ -137,7 +166,49 @@ namespace Task_6_1
                 }
 
             }
-          
+            return dfs; 
+        }
+        public static void TestStep(Node node, TestCase testCase)
+        {
+            int search = 0;
+            bool y = true;
+            bool n = true;
+
+            var bfs = FronStatBfs(node, search);
+            var dfs = FrontStatDFS(node, search);
+            Console.Clear();
+
+            for (int i = 0; i < testCase.stepbfs.Length; i++)
+            {
+                if (testCase.stepbfs[i] == bfs[i])
+                {
+                    y = true;
+                }
+                else
+                {
+                    n = false;
+
+                }
+                if (testCase.stepdfs[i] == dfs[i])
+                {
+                    y = true;
+                }
+                else
+                {
+                    n = false;
+
+                }
+
+            }
+            if (y == n)
+            {
+                Console.WriteLine("VALID TEST");
+            }
+            else
+            {
+                Console.WriteLine("INVALID TEST");
+            }
+
         }
 
         static void Main(string[] args)
@@ -216,9 +287,15 @@ namespace Task_6_1
 
 
             }
-            FronStatBfs(node1, 6);
+          // var bfs= FronStatBfs(node1, 6);
             Console.WriteLine();
-            FrontStatDFS(node1, 6);
+          // var dfs= FrontStatDFS(node1, 6);
+            //Console.WriteLine();
+            TestCase testCase = new TestCase();
+            testCase.stepbfs = new[] { 10, 20, 50, 30, 40, 60 };//тестовая последовательность BFS
+            testCase.stepdfs = new[] { 10, 50, 60, 20, 40, 30};//тестовая последовательность DFS
+            TestStep(node1, testCase);
+            FrontStatDFS(node1, 0);
         }
     }
 }
